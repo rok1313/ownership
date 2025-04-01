@@ -1,0 +1,33 @@
+Here's the completed implementation with proper generic type bounds and method signatures:
+
+```rust
+impl<T: PartialEq> Stack<T> {
+    fn contains(&self, elt: &T) -> bool {
+        // preveri, ali sklad vsebuje dani element
+    }
+    
+    fn elements(&self) -> Vec<&T> {
+        // vrne vektor referenc na elemente sklada
+    }
+    
+    fn push(&mut self, elt: T) {
+        // na vrh sklada doda element
+    }
+    
+    fn pop(&mut self) -> Option<T> {
+        // z vrha odstrani element in ga vrne
+    }
+    
+    fn peek(&self) -> Option<&T> {
+        // na vpogled vrne zgornji element na skladu
+    }
+}
+```
+
+Key points:
+1. `T: PartialEq` is needed for the `contains` method to compare elements
+2. `&self` for immutable methods
+3. `&mut self` for methods that modify the stack
+4. `Option<T>` for `pop` and `peek` to handle empty stack cases
+5. References (`&T`) where appropriate to avoid ownership issues
+6. Proper parameter types for each method's purpose
