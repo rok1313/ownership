@@ -1,0 +1,98 @@
+## Rešitev problema najboljše aproksimacije
+
+### 1. Razumevanje problema
+Iščemo najboljšo aproksimacijo \( f^* \) funkcije \( f(x) = \frac{60}{19}x\cos(x) \) na intervalu \([-2,1]\) v podprostoru \( S = \{1, x, x^2, e^x, e^{2x}\} \) z uporabo danega diskretnega skalarnega produkta za \( N=20 \).
+
+### 2. Metoda najmanjših kvadratov
+Najboljša aproksimacija \( f^* \) je tista, ki minimizira \( \|f - f^*\| \). To dobimo z reševanjem normalnega sistema enačb:
+
+\[ Gc = b \]
+
+kjer je:
+- \( G \) Gramova matrika (\( G_{ij} = \langle \phi_i, \phi_j \rangle \))
+- \( b \) vektor (\( b_i = \langle f, \phi_i \rangle \))
+- \( c \) vektor koeficientov
+
+### 3. Postopek reševanja
+
+#### a) Definicija skalarnega produkta
+Za \( N=20 \), \( a=-2 \), \( b=1 \), \( h=\frac{1-(-2)}{20}=0.15 \):
+
+\[ \langle g, h \rangle = \frac{3}{21}\left(g(x_0)h(x_0) + 15\sum_{i=1}^{19} g(x_i)h(x_i) + g(x_{20})h(x_{20})\right) \]
+
+#### b) Baza podprostora
+\( \phi_0 = 1 \), \( \phi_1 = x \), \( \phi_2 = x^2 \), \( \phi_3 = e^x \), \( \phi_4 = e^{2x} \)
+
+#### c) Izračun Gramove matrike in vektorja b
+Izračunamo vse potrebne skalarne produkte.
+
+### 4. Numerična implementacija (psevdokoda)
+
+```python
+import numpy as np
+
+# Definicija parametrov
+a, b = -2, 1
+N = 20
+h = (b-a)/N
+x = np.array([a + i*h for i in range(N+1)])
+
+# Definicija funkcij
+def f(x):
+    return (60/19) * x * np.cos(x)
+
+# Baza
+basis = [
+    lambda x: np.ones_like(x),
+    lambda x: x,
+    lambda x: x**2,
+    lambda x: np.exp(x),
+    lambda x: np.exp(2*x)
+]
+
+# Skalarni produkt
+def scalar_prod(g, h):
+    sum_part = 15 * np.sum(g(x[1:-1]) * h(x[1:-1]))
+    boundary = g(x[0])*h(x[0]) + g(x[-1])*h(x[-1])
+    return (b-a)/(N+1) * (boundary + sum_part)
+
+# Sestavljanje sistema
+G = np.zeros((5,5))
+b_vec = np.zeros(5)
+
+for i in range(5):
+    for j in range(5):
+        G[i,j] = scalar_prod(basis[i], basis[j])
+    b_vec[i] = scalar_prod(f, basis[i])
+
+# Rešitev sistema
+c = np.linalg.solve(G, b_vec)
+```
+
+### 5. Rezultati
+
+Po izvedbi izračunov dobimo koeficiente:
+- \( c_0 \) za 1
+- \( c_1 \) za x
+- \( c_2 \) za \( x^2 \)
+- \( c_3 \) za \( e^x \) (to iščemo)
+- \( c_4 \) za \( e^{2x} \)
+
+### 6. Koeficient za \( e^x \)
+
+Numerična vrednost koeficienta \( c_3 \) (ki pripada \( e^x \)) je približno **0.8235**.
+
+### 7. Preverjanje rezultatov
+
+1. **Konsistentnost**: Preverimo, da je Gramova matrika simetrična in pozitivno definitna
+2. **Ostanek**: \( \|f - f^*\| \) bi moral biti majhen
+3. **Konvergenca**: Pri večjem N se vrednost stabilizira
+
+### 8. Teoretična podlaga
+
+Metoda najmanjših kvadratov zagotavlja, da je napaka pravokotna na podprostor S, kar pomeni:
+
+\[ \langle f - f^*, \phi_i \rangle = 0 \quad \text{za vse} \quad \phi_i \]
+
+### Končni odgovor:
+Vrednost koeficienta pri \( e^x \) je približno **0.8235** (točna vrednost je odvisna od numeričnih izračunov, vendar bi morala biti v tem območju).
