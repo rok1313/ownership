@@ -1,0 +1,44 @@
+## Newtonov interpolacijski polinom za funkcijo f(x) = 45x + 2
+
+### 1. Podatki za interpolacijo
+Imamo točke:
+- x₀ = 0
+- x₁ = 1/2
+- x₂ = 1
+- x₃ = 3/2
+- x₄ = 2
+
+Vrednosti funkcije v teh točkah:
+- f(0) = 45*0 + 2 = 2
+- f(1/2) = 45*(1/2) + 2 = 24.5
+- f(1) = 45*1 + 2 = 47
+- f(3/2) = 45*(3/2) + 2 = 69.5
+- f(2) = 45*2 + 2 = 92
+
+### 2. Tabela deljenih diferenc
+
+Izračunamo deljene diference po shemi:
+
+| xᵢ | f[xᵢ] | f[xᵢ,xᵢ₊₁] | f[xᵢ,xᵢ₊₁,xᵢ₊₂] | f[xᵢ,...,xᵢ₊₃] | f[xᵢ,...,xᵢ₊₄] |
+|----|-------|------------|------------------|----------------|----------------|
+| 0  | 2     | (24.5-2)/(0.5-0) = 45 | (47-24.5)/(1-0.5) = 45 | (69.5-47)/(1.5-1) = 45 | (92-69.5)/(2-1.5) = 45 |
+| 0.5| 24.5  | (47-24.5)/(1-0.5) = 45 | (69.5-47)/(1.5-1) = 45 | (92-69.5)/(2-1.5) = 45 | - |
+| 1  | 47    | (69.5-47)/(1.5-1) = 45 | (92-69.5)/(2-1.5) = 45 | - | - |
+| 1.5| 69.5  | (92-69.5)/(2-1.5) = 45 | - | - | - |
+| 2  | 92    | - | - | - | - |
+
+### 3. Newtonova oblika polinoma
+Polinom ima obliko:
+p(x) = f[x₀] + f[x₀,x₁](x-x₀) + f[x₀,x₁,x₂](x-x₀)(x-x₁) + ...
+
+Vodilni koeficient (pri najvišji potenci x⁴) je deljena diferenca f[x₀,x₁,x₂,x₃,x₄].
+
+### 4. Izračun vodilnega koeficienta
+Iz tabele vidimo:
+f[x₀,x₁,x₂,x₃,x₄] = 0
+
+### Razlaga:
+Ker je f(x) linearna funkcija (stopnje 1), so vse deljene diference drugega in višjih redov enake 0.
+
+### Končni odgovor:
+Vrednost vodilnega koeficienta (deljene diference četrtega reda) je **0**.
