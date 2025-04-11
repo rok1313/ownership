@@ -1,0 +1,98 @@
+## Razlaga aproksimacije funkcije z Bernsteinovim polinomom
+
+### 1. Osnovni koncept Bernsteinovih polinomov
+Bernsteinovi polinomi stopnje `n` so definirani kot:
+
+\[ B_{i,n}(x) = \binom{n}{i} x^i (1-x)^{n-i} \quad \text{za} \quad i = 0,1,...,n \]
+
+kjer je:
+- \(\binom{n}{i}\) binomski koeficient
+- \(x\) vrednost na intervalu [0,1]
+
+### 2. Bernsteinova aproksimacija funkcije
+Za funkcijo \( f(x) = 13x + 5 + \sin(3x) \) na intervalu [0,1] konstruiramo Bernsteinov polinom stopnje \( n \):
+
+\[ (B_n f)(x) = \sum_{i=0}^n f\left(\frac{i}{n}\right) B_{i,n}(x) \]
+
+### 3. Razčlenitev komponent funkcije
+Naša funkcija ima tri komponente:
+1. Linearni del: \( 13x \)
+2. Konstantni del: \( 5 \)
+3. Nelinearni del: \( \sin(3x) \)
+
+### 4. Implementacija v kodi (psevdokoda)
+```python
+import math
+
+def bernstein_approximation(n, x):
+    """
+    Izračuna Bernsteinov polinom stopnje n za funkcijo f(x) = 13x + 5 + sin(3x)
+    
+    Args:
+        n: stopnja polinoma
+        x: točka na intervalu [0,1]
+    
+    Returns:
+        Vrednost aproksimacije v točki x
+    """
+    total = 0.0
+    for i in range(n+1):
+        # Izračun binomskega koeficienta
+        binom = math.comb(n, i)
+        
+        # Izračun Bernsteinovega baznega polinoma
+        bernstein = binom * (x**i) * ((1-x)**(n-i))
+        
+        # Vrednost funkcije v točki i/n
+        xi = i/n
+        fi = 13*xi + 5 + math.sin(3*xi)
+        
+        total += fi * bernstein
+    
+    return total
+```
+
+### 5. Razlaga ključnih elementov
+
+#### a) Binomski koeficient
+- Uporabljamo `math.comb(n, i)` ker natančno izračuna \(\binom{n}{i}\)
+- Alternativa bi bila rekurzivna definicija, vendar je manj učinkovita
+
+#### b) Bernsteinov bazni polinom
+- Kombiniramo tri faktorje:
+  1. Binomski koeficient
+  2. \(x^i\) za progresivno moč
+  3. \((1-x)^{n-i}\) za padajočo komponento
+
+#### c) Vzorčenje funkcije
+- Vrednost funkcije vzorčimo v enakomerno razporejenih točkah \( \frac{i}{n} \)
+- Točke so ekvidistantne na [0,1], kar zagotavlja enakomerno aproksimacijo
+
+### 6. Primerjava z alternativnimi pristopi
+1. **Večja stopnja n**:
+   - Večji n daje boljšo aproksimacijo
+   - Vendar računska zahtevnost narašča z O(n²)
+
+2. **Drugačno vzorčenje**:
+   - Namesto enakomernih točk bi lahko uporabili Čebiševljeve točke
+   - Vendar Bernsteinovi polinomi tradicionalno uporabljajo enakomerno delitev
+
+3. **Razčlenitev na komponente**:
+   - Lahko bi aproksimirali vsako komponento posebej
+   - Vendar direktna metoda ohranja enostavnost
+
+### 7. Lastnosti aproksimacije
+- **Konvergenca**: Ko \( n \to \infty \), \( B_n f \) enakomerno konvergira k \( f \) na [0,1]
+- **Ohranjanje oblike**: Polinom ohranja konveksnost in monotonost originalne funkcije
+- **Numerična stabilnost**: Izračuni so stabilni zaradi omejenosti intervala
+
+### 8. Optimizacije
+V praksi bi lahko uporabili:
+- **Memoizacijo** binomskih koeficientov
+- **Hornerjevo shemo** za evaluacijo polinomov
+- **Vektorski izračuni** za paralelno obdelavo
+
+Ta pristop je posebej primeren za naše funkcije, ker:
+1. Linearni del (13x + 5) je natančno reproduciran že pri n=1
+2. Nelinearni del (\(\sin(3x)\)) zahteva višje stopnje za natančno aproksimacijo
+3. Kombinacija ohranja gladkost originalne funkcije
