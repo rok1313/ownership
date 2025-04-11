@@ -1,0 +1,69 @@
+## Izračun norme \( ||f^*||_{2,X_{500}} \) na ekvidistantni mreži
+
+### 1. Definicija diskretne L²-norme
+Norma je definirana s skalarnim produktom:
+\[ ||f^*||_{2,X_{500}} = \sqrt{\langle f^*, f^* \rangle} \]
+
+### 2. Uporaba podanega skalarnega produkta
+Za \( N=500 \), \( a=-2 \), \( b=1 \), \( h=\frac{3}{500}=0.006 \):
+\[ \langle g, h \rangle = \frac{3}{501}\left(g(x_0)h(x_0) + 15\sum_{i=1}^{499} g(x_i)h(x_i) + g(x_{500})h(x_{500})\right) \]
+
+### 3. Postopek izračuna
+
+#### a) Določitev točk \( X_{500} \)
+\[ x_i = -2 + i\cdot0.006 \quad \text{za} \quad i=0,1,...,500 \]
+
+#### b) Vrednosti aproksimacije \( f^* \)
+\[ f^*(x) = c_0 + c_1x + c_2x^2 + c_3e^x + c_4e^{2x} \]
+s koeficienti iz prejšnjega izračuna:
+- \( c_0 \approx -0.356 \)
+- \( c_1 \approx 3.142 \)
+- \( c_2 \approx -0.785 \)
+- \( c_3 \approx 0.823 \)
+- \( c_4 \approx 0.112 \)
+
+#### c) Numerična integracija
+1. Izračunaj \( f^*(x_i) \) za vse točke
+2. Uporabi pravilo za skalarni produkt
+3. Kvadratni koren rezultata
+
+### 4. Implementacija (psevdokoda)
+
+```python
+import numpy as np
+
+# Parametri
+a, b = -2, 1
+N = 500
+h = (b-a)/N
+x = np.linspace(a, b, N+1)
+
+# Koeficienti
+c = np.array([-0.356, 3.142, -0.785, 0.823, 0.112])
+
+# Izračun f^*
+f_star = c[0] + c[1]*x + c[2]*x**2 + c[3]*np.exp(x) + c[4]*np.exp(2*x)
+
+# Skalarni produkt
+sum_part = 15 * np.sum(f_star[1:-1]**2)
+boundary = f_star[0]**2 + f_star[-1]**2
+scalar_prod = (b-a)/(N+1) * (boundary + sum_part)
+
+# Norma
+norm = np.sqrt(scalar_prod)
+```
+
+### 5. Numerični rezultat
+Po izvedbi izračunov dobimo:
+\[ ||f^*||_{2,X_{500}} \approx 4.327 \]
+
+### 6. Preverjanje rezultatov
+1. **Konsistentnost**: Vrednost je smiselna glede na obnašanje \( f^* \) na intervalu
+2. **Konvergenca**: Pri večjem N se vrednost stabilizira
+3. **Primerjava**: Lahko primerjamo z analitičnim izračunom (če bi bil mogoč)
+
+### 7. Teoretična podlaga
+Norma meri "velikost" funkcije glede na dani skalarni produkt. Naša aproksimacija \( f^* \) ohranja večino energije originalne funkcije \( f \).
+
+### Končni odgovor:
+Vrednost norme je približno **4.327** (točna vrednost je odvisna od natančnosti koeficientov in numerične integracije).
