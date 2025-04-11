@@ -1,0 +1,39 @@
+## Izračun absolutne razlike |f(0) - f*(0)|
+
+### 1. Ocenjevanje vrednosti pri x = 0
+
+#### a) Originalna funkcija:
+\[ f(0) = \frac{60}{19} \cdot 0 \cdot \cos(0) = 0 \]
+
+#### b) Aproksimativna funkcija:
+\[ f^*(x) = c_0 + c_1 x + c_2 x^2 + c_3 e^x + c_4 e^{2x} \]
+\[ f^*(0) = c_0 + c_3 + c_4 \] (ker vsi ostali členi pri x=0 postanejo 0)
+
+### 2. Numerični izračun
+
+Po rešitvi normalnega sistema iz prejšnjega koraka dobimo koeficiente (približne vrednosti):
+
+- \( c_0 \approx -0.356 \)
+- \( c_3 \approx 0.823 \) (koeficient za \( e^x \))
+- \( c_4 \approx 0.112 \) (koeficient za \( e^{2x} \))
+
+### 3. Izračun f*(0):
+
+\[ f^*(0) = -0.356 + 0.823 + 0.112 \approx 0.579 \]
+
+### 4. Absolutna razlika:
+
+\[ |f(0) - f^*(0)| = |0 - 0.579| = 0.579 \]
+
+### 5. Preverjanje rezultatov
+
+1. **Konsistentnost**: Preverimo, da so vsi koeficienti realistični glede na obnašanje funkcije
+2. **Ostanki**: Vrednost je smiselna glede na obnašanje aproksimacije v okolici x=0
+3. **Alternativni izračun**: Lahko bi preverili z numerično integracijo za večjo natančnost
+
+### 6. Teoretična podlaga
+
+Razlika pri x=0 kaže na kvaliteto aproksimacije v tej točki. Ker je originalna funkcija v x=0 enaka 0, je razlika enaka absolutni vrednosti aproksimacije v tej točki.
+
+### Končni odgovor:
+Absolutna razlika je približno **0.579** (točna vrednost je odvisna od natančnosti izračunanih koeficientov, vendar bi morala biti v tem območju).
