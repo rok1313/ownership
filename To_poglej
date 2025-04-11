@@ -1,0 +1,86 @@
+Podana je funkcija f(x)=13x+5+sin(3x)
+, ki jo na intervalu [0,1]
+ aproksimiramo z Bernsteinovim polinomom Bnf
+ stopnje n
+.
+
+
+a) Koliko je |f(25)−B8f(25)|
+? Answer 1 Question 1
+
+
+
+b) Naj bo h=1200
+ in naj bo X200={xi ; xi=ih, i=0,1,...,200}
+ ekvidistantna delitev intervala [0,1]
+ na 200
+ delov. Koliko je ||B6f||∞,X200−||B4f||∞,X200
+? Answer 2 Question 1
+
+
+Naj bo diskretni skalarni produkt funkcij g
+ in h
+ intervalu [a,b]
+ podan s predpisom
+b−aN+1(g(x0)h(x0)+15∑i=1N−1g(xi)h(xi)+g(xN)h(xN)),
+kjer so xi,i=0,1,...,N
+ ekvidistantno izbrane točke na [a,b]
+, torej xi=a+ih,i=0,1,...,N
+, h=b−aN
+. Za funkcijo
+f(x)=6019xcos(x)
+na intervalu [−2,1]
+ pri podanem skalarnem produktu za N=20
+ določite element najboljše aproksimacije f∗
+ po metodi najmanjših kvadratov iz podprostora S={1,x,x2,ex,e2x}
+ .
+
+
+a) Kolikšna je vrednost koeficienta, ki pri razvoju funkcije f∗
+ po dani bazi pripada bazni funkciji ex
+? Answer 1 Question 2
+
+
+
+b) Kolikšna je vrednost |f(0)−f∗(0)|
+? Answer 2 Question 2
+
+
+
+c) Naj bo h=3500
+ in naj bo X500={xi ; xi=−2+ih,i=0,1,...,500}
+ ekvidistantna delitev intervala [−2,1]
+ na 500
+ delov. Koliko je ||f∗||2,X500
+, kjer je norma porojena iz zgoraj podanega skalarnega produkta? Answer 3 Question 2
+
+
+Podana je funkcija f(x)=45x+2
+. Določite Newtonov interpolacijski polinom p
+ stopnje 4
+, ki v točkah 0,12,1,32
+ in 2
+ interpolira vrednosti funkcije f
+.
+
+
+a) Kolikšna je vrednost deljene diference, ki predstavlja vodilni koeficient polinoma p
+ v Newtonovi obliki? Answer 1 Question 3
+
+
+
+b) Koliko je p(34)
+? Answer 2 Question 3
+
+
+
+c) Določite še kubični Newtonov interpolacijski polinom p1
+, ki v točkah 0
+ in 2
+ interpolira vrednosti funkcije f
+ in vrednosti njenega prvega odvoda. Naj bo h=125
+ in naj bo X50={xi ; xi=ih,i=0,1,...,50}
+ ekvidistantna delitev intervala [0,2]
+ na 50
+ delov. Koliko je ||f−p1||∞,X50
+? Answer 3 Question 3
